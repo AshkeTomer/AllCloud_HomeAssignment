@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "name": "HomeAssignment",
+  "namespace": "",
+  "sfdcLoginUrl": "https://personal-38c-dev-ed.develop.lightning.force.com/",
+  "sourceApiVersion": "64.0"
+}

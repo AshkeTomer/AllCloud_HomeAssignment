@@ -1,0 +1,55 @@
+<template>
+    <lightning-card  variant="narrow" title="Tomorrow's Weather Forecast">
+        <div class="slds-grid slds-wrap  slds-p-around_small">
+            <div class={inputClass}>
+                <lightning-input data-id="inputcity" placeholder="City name" label="City" value={city} onchange={handleOnChange} required></lightning-input> <!-- Textbox input -->
+            </div>
+            <div class={buttonClass}>
+                <lightning-button label="Search" onclick={handleClick}></lightning-button> <!-- Search button -->
+            </div>
+            <template if:true={mapaLoaded}>
+                <div class="slds-col slds-large-size_6-of-12 slds-p-around_small slds-card_boundary">
+                    <lightning-card>
+                        <!--FORECAST-->
+                            <div class="slds-grid slds-grid_vertical slds-card_boundary slds-var-p-around_x-small">
+                                <p style="font-size:20px">Forecast</p>
+                                    <template for:each={forecast} for:item="fc" for:index="index">
+                                        <lightning-card key={fc.date} title={fc.dayId} class="slds-card__header custom__card">
+                                            <div class="slds-media__body" >
+                                                <div class="slds-grid" >
+                                                    <div class="slds-col" >
+                                                        Average temperature : {fc.day.avgtemp_c} °C<br>
+                                                        <img src={fc.day.condition.icon} alt={fc.day.condition.text}><br>
+                                                        {fc.day.condition.text}
+                                                    </div>
+                                                    <div class="slds-col" >
+                                                        Max temperature : {fc.day.maxtemp_c} °C<br>
+                                                        Min temperature : {fc.day.mintemp_c} °C<br>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </lightning-card>
+                                    </template>
+                            </div>
+                    </lightning-card>
+                </div>
+
+                <!--MAP-->
+                <div class="slds-col slds-small-size_6-of-12 slds-large-size_6-of-12 slds-p-around_small" >
+                    <lightning-map
+                        list-view="visible"
+                        map-markers={mapMarkers}
+                        zoom-level="4"
+                    >
+                    </lightning-map>
+                </div>
+                <br/>
+                <br/>
+            </template>
+            
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small" variant="brand" class="slds-is-fixed"></lightning-spinner>
+            </template>
+        </div>
+    </lightning-card>
+</template>
